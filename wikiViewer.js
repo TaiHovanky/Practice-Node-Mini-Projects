@@ -1,5 +1,6 @@
 var request = require('request');
 var fs = require('fs');
+//var db = require('wikiDb.js');
 var express = require('express');
 var app = express();
 app.set('view engine', 'ejs');
@@ -17,11 +18,17 @@ app.get('/:search', function(req, res){
 app.get('/:search/save', function(req, res){
     var search = req.params.search;
     request(url + search, function(error, response, body){
-        var writable = fs.createWriteStream(__dirname + '/wikiResults.txt');
+        //var writable = fs.createWriteStream(__dirname + '/wikiResults.txt');
         var bod = JSON.parse(body);
         for(var i=1; i<5; i++){
             var result = i + ") " + bod[1][i] + ": " + bod[2][i] + " ";
-            writable.write(result);
+            //writable.write(result);
+            fs.appendFile(__dirname + '/wikiResults.txt', result, function(error){
+                if(error){
+                    throw error;
+                }
+                //console.log('Your search results have been saved!');
+            });
         }
         
         res.send('Your search results have been saved!');
