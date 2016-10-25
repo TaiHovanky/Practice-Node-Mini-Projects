@@ -7,7 +7,7 @@ app.get('/:str', function (req, res) {
     var timeNbr = parseInt(str);
     var resObj = {};
     function createDateRes (isoDate){
-        var unixDate = Date.parse(isoDate);
+        var unixDate = Date.parse(isoDate)/1000;
         resObj.unix = unixDate;
         var MM = {Jan:"January", Feb:"February", Mar:"March", Apr:"April", May:"May", Jun:"June", Jul:"July", Aug:"August", Sep:"September", Oct:"October", Nov:"November", Dec:"December"}
 
@@ -15,6 +15,8 @@ app.get('/:str', function (req, res) {
         function($0,$1,$2,$3){
             return MM[$1]+" "+$2+", "+$3+" ";
         });
+        
+        nat = nat.split(" ").splice(0,3).join(" ");
         resObj.natural = nat;
         return resObj;
     }
@@ -29,6 +31,5 @@ app.get('/:str', function (req, res) {
     }       
     
 });
-
 
 app.listen(3000);
