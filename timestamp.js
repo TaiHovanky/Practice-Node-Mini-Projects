@@ -17,7 +17,11 @@ app.get('/:str', function (req, res) {
         });
         
         nat = nat.split(" ").splice(0,3).join(" ");
-        resObj.natural = nat;
+        if(nat !== "Invalid Date"){
+            resObj.natural = nat;
+        } else {
+            resObj.natural = null;
+        }
         return resObj;
     }
     if(timeNbr == str){
